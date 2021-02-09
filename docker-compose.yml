@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  spring-eureka-server:
+    image: spring-eureka-server:latest
+    build:
+      context: ../spring-eureka-server
+      dockerfile: ../spring-eureka-server/Dockerfile
+    volumes:
+      - /data/spring-eureka-server
+    ports:
+      - "8761:8761"
+
+  zuul-server:
+    image: zuul:latest
+    build:
+      context: ../zuul
+      dockerfile: ../zuul/Dockerfile
+    volumes:
+      - /data/zuul
+    ports:
+      - "8762:8762"
+
+  image-service:
+    image: spring-eureka-image:latest
+    build:
+      context: ../spring-eureka-image
+      dockerfile: ../spring-eureka-image/Dockerfile
+    volumes:
+      - /data/spring-eureka-image
+    ports:
+      - "8200:8200"
+
+  gallery-service:
+    image: spring-eureka-gallery:latest
+    build:
+      context: ../spring-eureka-gallery
+      dockerfile: ../spring-eureka-gallery/Dockerfile
+    volumes:
+      - /data/spring-eureka-gallery
+    ports:
+      - "8100:8100"
+
+  auth-service:
+    image: authentication:latest
+    build:
+      context: ../spring-eureka-authentication
+      dockerfile: ../spring-eureka-authentication/Dockerfile
+    volumes:
+      - /data/spring-eureka-authentication
+    ports:
+      - "9100:9100"
