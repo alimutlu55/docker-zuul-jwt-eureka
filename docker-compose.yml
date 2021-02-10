@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  database:
+    container_name: database
+    image: mysql
+    volumes:
+      - "./data:/var/lib/mysql"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: happy123
+
   spring-eureka-server:
     image: spring-eureka-server:latest
     build:
@@ -50,3 +61,5 @@ services:
       - /data/spring-eureka-authentication
     ports:
       - "9100:9100"
+    links:
+      - database
